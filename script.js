@@ -5,6 +5,7 @@ const board = document.getElementById("game-board");
 const gridSize = 20;
 let snake = [{ x: 10, y: 10 }];
 let  food = generateFood();
+let direction = 'right';
 
 
 // Draw game map. snake, food
@@ -43,13 +44,44 @@ function drawFood() {
     board.appendChild(foodElement);
 }
 
+// Generate food
 function generateFood() {
     const x = Math.floor(Math.random() * gridSize) + 1;
     const y = Math.floor(Math.random() * gridSize) + 1;
     return { x, y };
 }
 
+// Moving the Snake
+function move() {
+    const head = { ...snake[0]}
+    switch (direction) {
+        case 'up':
+            head.y--;
+            break;
+        case 'down':
+            head.y++;
+            break;
+        case 'right':
+            head.x++;
+            break;
+        case 'left':
+            head.x--;
+            break;
+
+    }
+
+    snake.unshift(head);
+
+    snake.pop();
+}
+
+// test moving
+setInterval(() => {
+    move(); // Move first
+    draw(); // then draw again new postion
+}, 1000);
+
 // testing draw function
 draw()
 
-console.log(board);
+// console.log(board);
