@@ -1,7 +1,9 @@
 // Define HTMl elements
 const board = document.getElementById("game-board");
 const instructionText = document.getElementById('instruction-text');
-const logo = document.getElementById('logo')
+const logo = document.getElementById('logo');
+const score = document.getElementById('score');
+const highScoreText = document.getElementById('highScore');
 
 // Define game variables
 const gridSize = 20;
@@ -11,6 +13,7 @@ let direction = 'right';
 let gameInterval;
 let gameStarted;
 let gameSpeedDelay = 200;
+let highScore = 0;
 
 
 // Draw game map. snake, food
@@ -18,6 +21,7 @@ function draw() {
     board.innerHTML = ``;
     drawSnake();
     drawFood();
+    updateScore();
 }
 
 // Draw Snake
@@ -137,3 +141,19 @@ function handleKeyPress(event) {
 }
 
 document.addEventListener('keydown', handleKeyPress);
+
+function updateScore () {
+    const currentScore = snake.length - 1;
+    score.textContent = currentScore.toString().padStart(3,'0');
+}
+
+
+function updateHighScore() {
+    const currentScore = snake.length - 1;
+    if (currentScore > highScore) {
+        highScore = currentScore;
+        highScoreText.textContent = highScore.toString().padStart(3, '0');
+    }
+    highScoreText.style.display = 'block';
+    
+}
