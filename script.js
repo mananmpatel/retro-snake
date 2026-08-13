@@ -86,6 +86,7 @@ function move() {
     if (head.x === food.x && head.y === food.y) {
         food = generateFood();
         increaseSpeed();
+        clearInterval(gameInterval); // Clear past interval
         gameInterval = setInterval(() => {
             move();
             checkCollision();
