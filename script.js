@@ -111,17 +111,6 @@ function startGame() {
     }, gameSpeedDelay)
 }
 
-// test moving
-// setInterval(() => {
-//     move(); // Move first
-//     draw(); // then draw again new postion
-// }, 1000);
-
-// testing draw function
-// draw()
-
-// console.log(board);
-
 //Keypress event listener
 function handleKeyPress(event) {
     if((!gameStarted && event.code === 'Space') || (!gameStarted && event.code === ' ')){
