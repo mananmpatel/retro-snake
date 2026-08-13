@@ -88,6 +88,7 @@ function move() {
         clearInterval(); // Clear past interval
         gameInterval = setInterval(() => {
             move();
+            checkCollision();
             draw();
         }, gameSpeedDelay);
     } else {
@@ -102,7 +103,7 @@ function startGame() {
     logo.style.display = 'none';
     gameInterval = setInterval(() => {
         move();
-        // checkCollision();
+        checkCollision();
         draw();
     }, gameSpeedDelay)
 }
@@ -141,6 +142,37 @@ function handleKeyPress(event) {
 }
 
 document.addEventListener('keydown', handleKeyPress);
+
+function stopGame() {
+    clearInterval(gameInterval);
+    gameStarted = false;
+    instructionText.style.display = 'block';
+    logo.style.display = 'block';
+}
+
+function checkCollision() {
+    const head = snake[0]
+    
+    if( head.x < 1 || head.x > gridSize || head.y < 1 || head.y > gridSize) {
+        resetGame();
+    }
+
+    for ( let i = 1; i < snake.length; i++) {
+        if (head.x === snake[i].x && head.y === snake[i].y) {
+            resetGame();
+        }
+    }
+}
+
+function resetGame() {
+    updateHighScore();
+    stopGame();
+    snake = [{x: 10, y: 10}];
+    food = generateFood();
+    direction = 'right';
+    gameSpeedDelay = 200;
+    updateScore();
+}
 
 function updateScore () {
     const currentScore = snake.length - 1;
