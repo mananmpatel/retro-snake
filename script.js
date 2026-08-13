@@ -51,6 +51,7 @@ function drawFood() {
     const foodElement = createGameElement('div', 'food');
     setPosition(foodElement, food);
     board.appendChild(foodElement);
+    }
 }
 
 // Generate food
